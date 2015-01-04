@@ -1,0 +1,32 @@
+* {
+  box-sizing:border-box;
+}
+
+h1 {
+	text-align: center;
+	font-size: 2.5em;
+	font-family: 'Sigmar One', cursive;
+}
+
+#board-container {
+	border: 1px solid red;
+	height: 75vh;
+	width: 75vw;
+	margin: auto;
+}
+
+#game {
+	height: 75%;
+	width: 50%;
+	margin: auto;
+	position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#game div {
+	height: 33.2%;
+	width: 33.2%;
+	border: 1px solid black;
+	float: left;
+}

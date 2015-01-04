@@ -18,16 +18,13 @@ var Game = React.createClass({
 	},
 	render: function(){
 		return (
-			<div>
-				<div id="game">
-					{ this.state.tiles.map(function(tile, position){
-						console.log(position)
-						console.log(this.state.playerTurn)
-						return (
-							<Tile status={tile} key={position} turn={this.state.playerTurn} />
-						)
-					}, this)}
-				</div>
+			<div id="game">
+				{ this.state.tiles.map(function(tile, position){
+					console.log(position)
+					return (
+						<Tile status={tile} key={position} turn={this.state.playerTurn} />
+					)
+				}, this)}
 			</div>
 		)
 	}
