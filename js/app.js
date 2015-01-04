@@ -13,17 +13,22 @@ var Game = React.createClass({
 				'', '', ''
 			],
 			// O Goes first
-			turn: 'O'
+			turn: 'O',
 		}
+	},
+	tileClick: function(position, player){
+		var tiles = this.state.tiles
+		if ( tiles[position] === "X" || tiles[position] === "O") return
+		tiles[position] = player
+		this.setState({tiles:tiles, turn: player === 'O' ? 'X' : 'O'})
 	},
 	render: function(){
 		return (
 			<div id="game">
 				<Menu turn={this.state.turn} />
 				{ this.state.tiles.map(function(tile, position){
-					console.log(position)
 					return (
-						<Tile status={tile} key={position} turn={this.state.turn} />
+						<Tile status={tile} key={position} turn={this.state.turn} tileClick={this.tileClick} />
 					)
 				}, this)}
 			</div>
@@ -32,9 +37,12 @@ var Game = React.createClass({
 });
 
 var Tile = React.createClass({
+	clickHandler: function(){
+		this.props.tileClick(this._mountIndex - 1, this.props.turn)
+	},
 	render: function(){
 		return (
-			<div className={this.props.status === '' ? 'tile' : 'tile status-' + this.props.status}>{this.props.status}</div>
+			<div className={this.props.status === '' ? 'tile' : 'tile status-' + this.props.status} onClick={this.clickHandler}>{this.props.status}</div>
 		)
 	}
 });
