@@ -12,15 +12,30 @@ var Game = React.createClass({
 				'', '', '',
 				'', '', ''
 			],
-			// O Goes first
-			turn: 'O',
+			// X Goes first
+			turn: 'X',
+		}
+	},
+	checkForWinner: function(){
+		var playedTiles = []
+		console.log("hi")
+		{this.state.tiles.map(function(tile, position){
+			if(tile !== ''){
+				playedTiles.push(tile)
+			}
+			if(tile)
+		}, this)}
+		if(playedTiles.length === 9){
+			alert("It's a Tie!")
 		}
 	},
 	tileClick: function(position, player){
 		var tiles = this.state.tiles
+		// If the selected tile is already filled, return to prevent it being replaced.
 		if ( tiles[position] === "X" || tiles[position] === "O") return
 		tiles[position] = player
 		this.setState({tiles:tiles, turn: player === 'O' ? 'X' : 'O'})
+		this.checkForWinner()
 	},
 	render: function(){
 		return (
