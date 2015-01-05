@@ -28,6 +28,9 @@ var Game = React.createClass({
 			winner: ''
 		}
 	},
+	resetGame: function(){
+		this.setState(this.getInitialState());
+	},
 	checkForWinner: function(player){
 		var wintable = [ [0,1,2], [0,4,8], [0,3,6], [1,4,7], [2,4,6], [2,5,8], [3,4,5], [6,7,8] ]
 		var playedTiles = []
@@ -69,7 +72,7 @@ var Game = React.createClass({
 	render: function(){
 		return (
 			<div id="game">
-				<Menu turn={this.state.turn} />
+				<Menu turn={this.state.turn} resetAction={this.resetGame} />
 				{ this.state.tiles.map(function(tile, position){
 					return (
 						<Tile status={tile} key={position} turn={this.state.turn} tileClick={this.tileClick} />
@@ -94,7 +97,10 @@ var Tile = React.createClass({
 var Menu = React.createClass({
 	render: function() {
 		return (
-			<h2>"Player {this.props.turn}'s Turn"</h2>
+			<div id="menu">
+				<h2>"Player {this.props.turn}'s Turn"</h2>
+				<button onClick={this.props.resetAction}>Reset Game</button>
+			</div>
 		)
 	}
 });

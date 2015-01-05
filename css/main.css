@@ -7,12 +7,8 @@ h1 {
 	font-size: 2.5em;
 	font-family: 'Sigmar One', cursive;
 }
-h2 {
-	text-align: center;
-}
 
 #board-container {
-	border: 1px solid red;
 	height: 75vh;
 	width: 75vw;
 	margin: auto;
@@ -27,7 +23,7 @@ h2 {
   transform: translateY(-50%);
 }
 
-#game div {
+.tile{
 	height: 33.2%;
 	width: 33.2%;
 	border: 1px solid black;
@@ -35,4 +31,15 @@ h2 {
 	text-align: center;
 	font-size: 5em;
 	padding-top: 0.5em;
+}
+
+#menu {
+	text-align: center;
+}
+
+#menu button {
+	height: 3em;
+	width: 10em;
+	font-size: 1em;
+	margin-bottom: 1em;
 }
