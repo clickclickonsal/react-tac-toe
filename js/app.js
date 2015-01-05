@@ -1,6 +1,17 @@
 /**
 	* @jsx React.DOM
 */
+Array.prototype.containsArray = function ( array /*, index, last*/ ) { //http://jsfiddle.net/ThinkingStiff/X9jed/
+    if( arguments[1] ) {
+        var index = arguments[1], last = arguments[2];
+    } else {
+        var index = 0, last = 0; this.sort(); array.sort();
+    };
+    
+    return index == array.length
+        || ( last = this.indexOf( array[index], last ) ) > -1
+        && this.containsArray(array, ++index, ++last );
+};
 
 // Tic Tac Toe board container
 var Game = React.createClass({
@@ -16,17 +27,25 @@ var Game = React.createClass({
 			turn: 'X',
 		}
 	},
-	checkForWinner: function(){
+	checkForWinner: function(player){
+		var wintable = [ [0,1,2], [0,4,8], [0,3,6], [1,4,7], [2,4,6], [2,5,8], [3,4,5], [6,7,8] ]
 		var playedTiles = []
-		console.log("hi")
+		var playedXs = []
+		var playedOs = []
 		{this.state.tiles.map(function(tile, position){
-			if(tile !== ''){
+			if(tile === 'X'){
 				playedTiles.push(tile)
+				playedXs.push(position)
 			}
-			if(tile)
+			else if(tile === "O"){
+				playedTiles.push(tile)
+				playedOs.push(position)
+			}
 		}, this)}
-		if(playedTiles.length === 9){
-			alert("It's a Tie!")
+		for(var i = 0; i < wintable.length; i++){
+			if(playedXs.containsArray(wintable[i]) || playedOs.containsArray(wintable[i])){
+				alert("Player " + player + " Wins")
+			}
 		}
 	},
 	tileClick: function(position, player){
@@ -35,7 +54,7 @@ var Game = React.createClass({
 		if ( tiles[position] === "X" || tiles[position] === "O") return
 		tiles[position] = player
 		this.setState({tiles:tiles, turn: player === 'O' ? 'X' : 'O'})
-		this.checkForWinner()
+		this.checkForWinner(player)
 	},
 	render: function(){
 		return (
