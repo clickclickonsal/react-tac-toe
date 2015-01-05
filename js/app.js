@@ -25,6 +25,7 @@ var Game = React.createClass({
 			],
 			// X Goes first
 			turn: 'X',
+			winner: ''
 		}
 	},
 	checkForWinner: function(player){
@@ -32,6 +33,8 @@ var Game = React.createClass({
 		var playedTiles = []
 		var playedXs = []
 		var playedOs = []
+		var winner = ''
+
 		{this.state.tiles.map(function(tile, position){
 			if(tile === 'X'){
 				playedTiles.push(tile)
@@ -42,16 +45,23 @@ var Game = React.createClass({
 				playedOs.push(position)
 			}
 		}, this)}
+
 		for(var i = 0; i < wintable.length; i++){
 			if(playedXs.containsArray(wintable[i]) || playedOs.containsArray(wintable[i])){
+				winner += player
+				this.setState({winner:player})
 				alert("Player " + player + " Wins")
 			}
+		}
+		if(playedTiles.length === 9 && winner == ''){
+			alert("It's a Tie!")
 		}
 	},
 	tileClick: function(position, player){
 		var tiles = this.state.tiles
 		// If the selected tile is already filled, return to prevent it being replaced.
-		if ( tiles[position] === "X" || tiles[position] === "O") return
+		if(this.state.winner) return
+		if( tiles[position] === "X" || tiles[position] === "O") return
 		tiles[position] = player
 		this.setState({tiles:tiles, turn: player === 'O' ? 'X' : 'O'})
 		this.checkForWinner(player)
