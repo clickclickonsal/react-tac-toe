@@ -1,6 +1,7 @@
 /**
 	* @jsx React.DOM
 */
+// Using this code to be able to compare two arrays, able to using containsArray() method.
 Array.prototype.containsArray = function ( array /*, index, last*/ ) { //http://jsfiddle.net/ThinkingStiff/X9jed/
     if( arguments[1] ) {
         var index = arguments[1], last = arguments[2];
@@ -32,23 +33,22 @@ var Game = React.createClass({
 		this.setState(this.getInitialState());
 	},
 	checkForWinner: function(player){
+		// All possible winning combinations 
 		var wintable = [ [0,1,2], [0,4,8], [0,3,6], [1,4,7], [2,4,6], [2,5,8], [3,4,5], [6,7,8] ]
-		var playedTiles = []
 		var playedXs = []
 		var playedOs = []
 		var winner = ''
 
 		{this.state.tiles.map(function(tile, position){
 			if(tile === 'X'){
-				playedTiles.push(tile)
 				playedXs.push(position)
 			}
 			else if(tile === "O"){
-				playedTiles.push(tile)
 				playedOs.push(position)
 			}
 		}, this)}
 
+		// Checks if the playedXs or playedOs matches any of the combos in the wintable array
 		for(var i = 0; i < wintable.length; i++){
 			if(playedXs.containsArray(wintable[i]) || playedOs.containsArray(wintable[i])){
 				winner += player
@@ -56,7 +56,8 @@ var Game = React.createClass({
 				alert("Player " + player + " Wins")
 			}
 		}
-		if(playedTiles.length === 9 && winner == ''){
+		//  checks for tie by seeing if all spaces are occupied and if no winner is present
+		if( (playedXs.length + playedOs.length) === 9 && winner == ''){
 			alert("It's a Tie!")
 		}
 	},
@@ -66,6 +67,7 @@ var Game = React.createClass({
 		if(this.state.winner) return
 		if( tiles[position] === "X" || tiles[position] === "O") return
 		tiles[position] = player
+		// changes player turn 
 		this.setState({tiles:tiles, turn: player === 'O' ? 'X' : 'O'})
 		this.checkForWinner(player)
 	},
