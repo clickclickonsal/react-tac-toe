@@ -15,7 +15,7 @@ Array.prototype.containsArray = function ( array /*, index, last*/ ) { //http://
 };
 
 // Tic Tac Toe board container
-var Game = React.createClass({
+var Game = React.createClass({displayName: "Game",
 	getInitialState: function(){
 		return {
 			// Initial state of the game board.
@@ -81,43 +81,39 @@ var Game = React.createClass({
 	},
 	render: function(){
 		return (
-			<div id="game">
-				<Menu turn={this.state.turn} resetAction={this.resetGame} />
-				{ this.state.tiles.map(function(tile, position){
+			React.createElement("div", {id: "game"}, 
+				React.createElement(Menu, {turn: this.state.turn, resetAction: this.resetGame}), 
+				 this.state.tiles.map(function(tile, position){
 					return (
-						<Tile status={tile} key={position} turn={this.state.turn} tileClick={this.tileClick} />
+						React.createElement(Tile, {status: tile, key: position, turn: this.state.turn, tileClick: this.tileClick})
 					)
-				}, this)}
-				<div className={this.state.xwins}>
-					<span>Score</span>
-					<div>X<br />{this.state.xwins}</div>
-					<div>O<br />{this.state.owins}</div>
-				</div>
-			</div>
+				}, this), 
+				React.createElement("div", {className: this.state.xwins}, "Score keeper:", this.state.xwins)
+			)
 		)
 	}
 });
 
-var Tile = React.createClass({
+var Tile = React.createClass({displayName: "Tile",
 	clickHandler: function(){
 		this.props.tileClick(this._mountIndex - 1, this.props.turn)
 	},
 	render: function(){
 		return (
-			<div className={this.props.status === '' ? 'tile' : 'tile status-' + this.props.status} onClick={this.clickHandler}>{this.props.status}</div>
+			React.createElement("div", {className: this.props.status === '' ? 'tile' : 'tile status-' + this.props.status, onClick: this.clickHandler}, this.props.status)
 		)
 	}
 });
 
-var Menu = React.createClass({
+var Menu = React.createClass({displayName: "Menu",
 	render: function() {
 		return (
-			<div id="menu">
-				<h2>"Player {this.props.turn}'s Turn"</h2>
-				<button onClick={this.props.resetAction}>Reset Game</button>
-			</div>
+			React.createElement("div", {id: "menu"}, 
+				React.createElement("h2", null, "\"Player ", this.props.turn, "'s Turn\""), 
+				React.createElement("button", {onClick: this.props.resetAction}, "Reset Game")
+			)
 		)
 	}
 });
 
-React.render(<Game />, document.getElementById('board-container'));
+React.render(React.createElement(Game, null), document.getElementById('board-container'));
