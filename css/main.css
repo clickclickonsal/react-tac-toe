@@ -43,3 +43,11 @@ h1 {
 	font-size: 1em;
 	margin-bottom: 1em;
 }
+
+.status-X {
+	color: red;
+}
+
+.status-O {
+	color: blue;
+}
