@@ -93,8 +93,8 @@ var Game = React.createClass({displayName: "Game",
 				}, this), 
 				React.createElement("div", {className: "score-keeper"}, 
 					React.createElement("span", {id: "score"}, "Score"), 
-					React.createElement("div", {className: "xwins"}, "X: ", this.state.xwins), 
-					React.createElement("div", {className: "owins"}, "O: ", this.state.owins)
+					React.createElement("div", {className: "xwins"}, "X", React.createElement("br", null), this.state.xwins), 
+					React.createElement("div", {className: "owins"}, "O", React.createElement("br", null), this.state.owins)
 				)
 			)
 		)

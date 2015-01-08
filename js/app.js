@@ -91,10 +91,10 @@ var Game = React.createClass({
 						<Tile status={tile} key={position} turn={this.state.turn} tileClick={this.tileClick} />
 					)
 				}, this)}
-				<div className={this.state.xwins}>
-					<span>Score</span>
-					<div>X<br />{this.state.xwins}</div>
-					<div>O<br />{this.state.owins}</div>
+				<div className="score-keeper">
+					<span id="score">Score</span>
+					<div className="xwins">X: {this.state.xwins}</div>
+					<div className="owins">O: {this.state.owins}</div>
 				</div>
 			</div>
 		)

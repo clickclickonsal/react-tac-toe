@@ -44,10 +44,32 @@ h1 {
 	margin-bottom: 1em;
 }
 
-.status-X {
+.status-X, .xwins {
 	color: red;
 }
 
-.status-O {
+.status-O, .owins {
 	color: blue;
+}
+
+.score-keeper {
+	text-align: center;
+	font-size: 2em;
+	width: 30%;
+	margin: auto;
+}
+
+.score-keeper div {
+	margin-top: 1em;
+}
+
+#score {
+	text-decoration: underline;
+}
+
+.xwins {
+	float: left;
+}
+.owins {
+	float: right;
 }
